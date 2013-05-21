@@ -28,8 +28,7 @@
 (put 'set-goal-column 'disabled nil)
 
 
-(push "~/lib/emacs" load-path)
-(push "~/src/midje-mode" load-path)
+(push "~/.emacs.d/libs" load-path)
 
 
 ;;;; package.el
@@ -191,7 +190,7 @@
 
 ;;;; emacs lisp
 (defun imenu-elisp-sections ()
-  (setq imenu-prev-index-position-function nil)
+  (setq imqenu-prev-index-position-function nil)
   (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
 
 (add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
@@ -297,14 +296,12 @@ that file in the other window and position point on that line."
 (add-hook 'ido-setup-hook 'mp-ido-hook)
 
 
-;;;; ido-ubiquitous
 (after 'ido-ubiquitous-autoloads (ido-ubiquitous-mode t))
 ;(after 'ido-ubiquitous (ido-ubiquitous-disable-in evil-ex))
 
 (setq ido-ubiquitous-command-exceptions '(execute-extended-command))
 (setq ido-ubiquitous-function-exceptions '())
 
-;;;; ido-vertical-mode
 (after 'ido-vertical-mode-autoloads
   (ido-vertical-mode t))
 
