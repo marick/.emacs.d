@@ -104,6 +104,7 @@
 (delete-selection-mode t)
 (global-auto-revert-mode t)
 (browse-kill-ring-default-keybindings)  ; M-y - n for next, q to quit
+(setq-default backup-directory-alist '(("." . "~/.emacs-backups")))
 
 ;;;; recentf
 (recentf-mode t)
@@ -162,29 +163,33 @@
 
 ;;;; shell commands
 
-(defun do-command-from-here (cmd)
+(defun do-command-from-here (shell-buffer cmd)
   (interactive)
   (save-some-buffers t)
-  (switch-to-buffer-other-window "*shell*")
+  (switch-to-buffer-other-window shell-buffer)
   (goto-char (point-max))
   (insert cmd)
   (comint-send-input))
 
 (defun shell-command-again ()
   (interactive)
-  (do-command-from-here "!!"))
+  (do-command-from-here  "*shell*" "!!"))
 
 (defun ruby-shell-command-again ()
   (interactive)
-  (do-command-from-here "!ruby"))
+  (do-command-from-here  "*shell*" "!ruby"))
 
 (defun rake-shell-command-again ()
   (interactive)
-  (do-command-from-here "!rake"))
+  (do-command-from-here  "*shell*" "!rake"))
 
 (defun open-shell-command-again ()
   (interactive)
-  (do-command-from-here "!open"))
+  (do-command-from-here  "*shell*" "!open"))
+
+(defun lein-shell-command-again ()
+  (interactive)
+  (do-command-from-here "*clojure*" "!lein"))
 
 
 
@@ -415,7 +420,7 @@ that file in the other window and position point on that line."
 (global-set-key (kbd "H-k") 'put-buffer-in-k-window)
 (global-set-key (kbd "H-l") 'put-buffer-in-l-window)
 
-(global-set-key (kbd "C-x H-l") 'find-file-in-h-window) 
+(global-set-key (kbd "C-x H-h") 'find-file-in-h-window) 
 (global-set-key (kbd "C-x H-j") 'find-file-in-j-window)
 (global-set-key (kbd "C-x H-k") 'find-file-in-k-window)
 (global-set-key (kbd "C-x H-l") 'find-file-in-l-window)
@@ -466,6 +471,7 @@ that file in the other window and position point on that line."
 (global-set-key [f5] 'ruby-shell-command-again)
 (global-set-key [f6] 'rake-shell-command-again)
 (global-set-key [f7] 'open-shell-command-again)
+(global-set-key (kbd "H-m") 'lein-shell-command-again)
 
 (global-set-key "\^h\^h" 'ruby-visit-source)    
 
@@ -487,7 +493,7 @@ that file in the other window and position point on that line."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hl-sexp-face ((t (:background "gray24"))))
+ '(hl-sexp-face ((t (:background "gray14"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "dark magenta"))) t)
  '(rainbow-delimiters-depth-2-face ((t (:foreground "dark red"))) t)
  '(rainbow-delimiters-depth-3-face ((t (:foreground "dark blue"))) t))
