@@ -231,9 +231,11 @@
      (tabular 'defun)
      (against-background 'defun)
      (error-let 'defun)
+     (when-maybe 'defun)
      (provided 0)
      )
   (add-hook 'clojure-mode-hook 'hl-sexp-mode)
+  
 )
 
 ;;;; Ruby mode 
