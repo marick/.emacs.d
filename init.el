@@ -202,6 +202,12 @@
 (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
 
 ;;;; midje mode
+
+(push "~/src/midje-mode" load-path)
+(require 'midje-mode)
+(require 'clojure-jump-to-file)
+
+
 (add-hook 'clojure-mode-hook 'midje-mode)
 
 ;;;; shell mode
