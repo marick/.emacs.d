@@ -57,8 +57,7 @@
     markdown-mode+
     rainbow-delimiters
     smex
-    midje-mode
-    nrepl
+;    midje-mode
     ))
 
 
