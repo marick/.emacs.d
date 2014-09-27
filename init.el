@@ -6,8 +6,8 @@
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
+; (setq inhibit-startup-screen t)
+; (setq inhibit-startup-message t)
 
 (setenv "EDITOR" "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient")
 
