@@ -73,10 +73,10 @@
 (require 'misc)
 (require 'midnight)
 (require 'saveplace) (setq-default save-place t)
-(require 'uniquify) (progn
-		      uniquify-buffer-name-style 'forward
-		      uniquify-ask-about-buffer-names-p t
-		      uniquify-ignore-buffers-re "^\\*")
+(require 'uniquify) 
+(setq uniquify-buffer-name-style 'forward
+      uniquify-ask-about-buffer-names-p t
+      uniquify-ignore-buffers-re "^\\*")
 (require 'checkdoc)
 (require 'ido)
 (require 'clojure-jump-to-file)
@@ -194,7 +194,7 @@
 
 ;;;; emacs lisp
 (defun imenu-elisp-sections ()
-  (setq imqenu-prev-index-position-function nil)
+  (setq imenu-prev-index-position-function nil)
   (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
 
 (add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
@@ -222,6 +222,12 @@
 (after 'clojure-mode-autoloads
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode)))
 
+(defun clojure-generic-expression ()
+  (setq imenu-prev-index-position-function nil)
+  (setq imenu-generic-expression '((nil "^\(facts? \\(.*\\)" 1))))
+
+
+
 (after 'clojure-mode
   (message "Clojure mode loaded")
   (define-clojure-indent
@@ -240,7 +246,7 @@
      (provided 0)
      )
   (add-hook 'clojure-mode-hook 'hl-sexp-mode)
-  
+  (add-hook 'clojure-mode-hook 'clojure-generic-expression)
 )
 
 ;;;; Ruby mode 
