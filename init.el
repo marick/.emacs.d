@@ -226,7 +226,13 @@
   (setq imenu-prev-index-position-function nil)
   (setq imenu-generic-expression '((nil "^\(facts? \\(.*\\)" 1))))
 
-
+(defun clojure-autotest ()
+  (interactive)
+  (save-all-buffers)
+  (when (string= "*" (substring (buffer-name (window-buffer (k-window))) 0 1))
+    (save-window-excursion
+      (switch-to-k-window)
+      (end-of-buffer))))
 
 (after 'clojure-mode
   (message "Clojure mode loaded")
@@ -243,6 +249,7 @@
      (against-background 'defun)
      (error-let 'defun)
      (when-maybe 'defun)
+     (when-some 'defun)
      (provided 0)
      )
   (add-hook 'clojure-mode-hook 'hl-sexp-mode)
@@ -344,6 +351,10 @@ that file in the other window and position point on that line."
   (interactive)
   (recenter 0))
 
+(defun save-all-buffers ()
+  (interactive)
+  (save-some-buffers t))
+
 (defun h-window () (window-at 1 1))
 (defvar h-buffer nil)
 
@@ -380,16 +391,6 @@ that file in the other window and position point on that line."
 (defun find-file-in-j-window () (interactive) (find-file-in-foo-window 'j-window 'j-buffer))
 (defun find-file-in-k-window () (interactive) (find-file-in-foo-window 'k-window 'k-buffer))
 (defun find-file-in-l-window () (interactive) (find-file-in-foo-window 'l-window 'l-buffer))
-
-(defun put-recent-file-in-foo-window (window memory)
-  (switch-to-foo-window window)
-  (recentf-open-files)
-  (remember-buffer))
-(defun put-recent-file-in-h-window () (interactive) (put-recent-file-in-foo-window 'h-window 'h-buffer))
-(defun put-recent-file-in-j-window () (interactive) (put-recent-file-in-foo-window 'j-window 'j-buffer))
-(defun put-recent-file-in-k-window () (interactive) (put-recent-file-in-foo-window 'k-window 'k-buffer))
-(defun put-recent-file-in-l-window () (interactive) (put-recent-file-in-foo-window 'l-window 'l-buffer))
-
 
 (defun remember-buffer (memory)
   (set memory (buffer-name (window-buffer))))
@@ -433,20 +434,15 @@ that file in the other window and position point on that line."
 (global-set-key (kbd "H-k") 'put-buffer-in-k-window)
 (global-set-key (kbd "H-l") 'put-buffer-in-l-window)
 
-(global-set-key (kbd "C-x H-h") 'find-file-in-h-window) 
-(global-set-key (kbd "C-x H-j") 'find-file-in-j-window)
-(global-set-key (kbd "C-x H-k") 'find-file-in-k-window)
-(global-set-key (kbd "C-x H-l") 'find-file-in-l-window)
+(global-set-key (kbd "H-s-h") 'find-file-in-h-window) 
+(global-set-key (kbd "H-s-j") 'find-file-in-j-window)
+(global-set-key (kbd "H-s-k") 'find-file-in-k-window)
+(global-set-key (kbd "H-s-l") 'find-file-in-l-window)
+
+(global-set-key (kbd "H-s-g") 'four-windows)
+(global-set-key (kbd "H-s-s") 'clojure-autotest)
 
 
-(global-set-key (kbd "ESC <f1>") 'put-recent-file-in-h-window) 
-(global-set-key (kbd "ESC <f2>") 'put-recent-file-in-j-window)
-(global-set-key (kbd "ESC <f3>") 'put-recent-file-in-k-window)
-(global-set-key (kbd "ESC <f4>") 'put-recent-file-in-l-window)
-
-
-
-(global-set-key [f1] 'recentf-open-files)
 
 
 (global-set-key (kbd "C-h l") 'ace-jump-line-mode)
@@ -468,6 +464,7 @@ that file in the other window and position point on that line."
 (global-set-key (kbd "H-v") 'yank)
 (global-set-key (kbd "H-z") 'undo)
 (global-set-key (kbd "H-s") 'save-buffer)
+(global-set-key (kbd "C-x s") 'save-all-buffers)
 (global-set-key (kbd "H-a") 'mark-whole-buffer)
 
 
