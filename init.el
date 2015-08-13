@@ -57,6 +57,8 @@
     markdown-mode+
     rainbow-delimiters
     smex
+    alchemist
+    company
 ;    midje-mode
     ))
 
@@ -216,6 +218,13 @@
   (setq mode-line-format
 	(list "%b--" 'default-directory "---%M---%3p---%[(%m: %s)%]%-")))
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
+
+
+;;;; elixir
+(defun my-elixir-mode-hook ()
+  (alchemist-mode 1)
+  (company-mode 1))
+(add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
 
 
 ;;;; clojure-mode
