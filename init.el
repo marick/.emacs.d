@@ -131,17 +131,6 @@
 
 
 
-;;;; Hippie-expand
-
-(setq hippie-expand-try-functions-list '(try-complete-file-name-partially
-                                         try-complete-file-name
-                                         try-expand-dabbrev
-                                         try-expand-dabbrev-all-buffers
-                                         try-expand-dabbrev-from-kill
-                                         try-expand-all-abbrevs
-                                         try-complete-lisp-symbol-partially
-                                         try-complete-lisp-symbol))
-
 ;;;; shell commands
 
 (defun do-command-from-here (shell-buffer cmd)
@@ -194,6 +183,7 @@
   (clj-refactor-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import
   (cljr-add-keybindings-with-prefix "C-c C-m")
+  (company-mode-on)
   )
 
 (add-hook 'clojure-mode-hook 'my-clojure-mode-hook)
@@ -212,6 +202,16 @@
   (alchemist-mode 1)
   (company-mode 1))
 (add-hook 'elixir-mode-hook 'my-elixir-mode-hook)
+
+;;;; pony
+
+(require 'ponylang-mode)
+(add-hook
+  'ponylang-mode-hook
+  (lambda ()
+    (set-variable 'indent-tabs-mode nil)
+    (set-variable 'tab-width 2)))
+
 
 
 ;;;; clojure-mode
@@ -291,9 +291,10 @@ that file in the other window and position point on that line."
           (t
            (error "No ruby location on line.")))))
 
-(add-hook 'ruby-mode-hook '(lambda () (hl-line-mode)))
-
-
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+;             (hl-line-mode)
+             (company-mode-on)))
 
 ;;;; Markdown mode
 (setq auto-mode-alist
@@ -422,8 +423,6 @@ that file in the other window and position point on that line."
 (global-set-key (kbd "C-c C-f") 'iy-go-to-char)
 (global-set-key (kbd "C-c C-b") 'iy-go-to-char-backward)
 
-(global-set-key (kbd "C-\\") 'hippie-expand)
-(global-set-key [f8] 'hippie-expand)
 
 (global-set-key "\e!" 'line-to-top-of-window)
 (global-set-key (kbd "C-x C-l") 'goto-line) 
@@ -440,7 +439,10 @@ that file in the other window and position point on that line."
 ;;; Healthfinch
 (push "~/h/emacs-common-denominator" load-path)
 (require 'healthfinch-init)
+(remove-hook 'after-init-hook 'global-company-mode)
 
+;;; Me
+(require 'marick-elm)
 
 (ignore-errors (server-start))
 ;;; init.el ends here
