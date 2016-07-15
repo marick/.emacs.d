@@ -24,9 +24,7 @@
 (setq-default indent-tabs-mode nil)
 (put 'set-goal-column 'disabled nil)
 
-
 (push "~/.emacs.d/libs" load-path)
-
 
 ;;;; package.el
 (require 'package)
@@ -37,6 +35,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
+
 
 (defvar bem-packages 
   '(exec-path-from-shell
@@ -125,9 +124,8 @@
 						     (frame-char-height))))
 )
 (setq-default ansi-color-for-comint-mode t
-	      visible-bell t
-	      scroll-conservatively 5
-	      scroll-margin 5)
+              scroll-conservatively 5
+              scroll-margin 5)
 
 
 
@@ -173,7 +171,7 @@
 
 ;;;; midje mode
 
-(push "~/src/midje-mode" load-path)
+(push "~/src/midje/midje-mode" load-path)
 (require 'midje-mode)
 (require 'clojure-jump-to-file)
 
@@ -437,14 +435,15 @@ that file in the other window and position point on that line."
 
 
 ;;; Healthfinch
-(push "~/h/emacs-common-denominator" load-path)
+(push "~/lib/emacs/emacs-common-denominator" load-path)
 (require 'healthfinch-init)
 (remove-hook 'after-init-hook 'global-company-mode)
 
 ;;; Me
 (require 'marick-elm)
 
-(ignore-errors (server-start))
+(ignore-errors
+  (server-start))
 ;;; init.el ends here
 
 (custom-set-variables
