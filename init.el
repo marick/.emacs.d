@@ -97,7 +97,7 @@
 (global-auto-revert-mode t)
 (browse-kill-ring-default-keybindings)  ; M-y - n for next, q to quit
 (setq-default backup-directory-alist '(("." . "~/.emacs-backups")))
-
+(setq ag-reuse-buffers 't)
 
 ;;;; GUI settings
 
