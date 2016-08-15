@@ -321,10 +321,10 @@ that file in the other window and position point on that line."
 (defun j-window () (window-at 150 1))
 (defvar j-buffer nil)
 
-(defun k-window () (window-at 1 50))
+(defun k-window () (window-at 1 25))
 (defvar k-buffer nil)
 
-(defun l-window () (window-at 150 50))
+(defun l-window () (window-at 150 25))
 (defvar l-buffer nil)
 
 (defun switch-to-foo-window (window)
