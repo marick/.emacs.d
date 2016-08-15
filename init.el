@@ -11,6 +11,7 @@
 ; (setq inhibit-startup-message t)
 
 (setenv "EDITOR" "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient")
+(setenv "PAGER" "cat")
 
 ;; Commands that trip me up - or not 
 
