@@ -27,6 +27,23 @@
 
 (push "~/.emacs.d/libs" load-path)
 
+;;;; Miscellaneous defuns
+
+(defun big ()
+  (interactive)
+  (text-scale-adjust 1))
+
+(defun line-to-top-of-window ()
+  (interactive)
+  (recenter 0))
+
+(defun save-all-buffers (&rest ignored)
+  (save-some-buffers t))
+
+(defun save-before (commands)
+  (dolist (c commands) 
+    (advice-add c :before #'save-all-buffers)))
+
 ;;;; package.el
 (require 'package)
 (setq package-user-dir "~/.emacs.d/elpa/")
@@ -50,7 +67,6 @@
     hl-sexp
     markdown-mode+
     rainbow-delimiters
-    alchemist
     company
     clj-refactor
 ;    midje-mode
@@ -75,8 +91,6 @@
       uniquify-ignore-buffers-re "^\\*")
 (require 'checkdoc)
 (require 'clojure-jump-to-file)
-
-
 
 ;;;; Paths
 
@@ -134,7 +148,7 @@
 
 (defun do-command-from-here (shell-buffer cmd)
   (interactive)
-  (save-some-buffers t)
+  (save-all-buffers)
   (switch-to-buffer-other-window shell-buffer)
   (goto-char (point-max))
   (insert cmd)
@@ -197,6 +211,25 @@
 
 
 ;;;; elixir
+
+(use-package alchemist
+  :ensure t
+  :config (save-before '(alchemist-mix-compile
+                         alchemist-mix-test
+                         alchemist-mix-rerun-last-test
+                         alchemist-mix-test-file
+                         alchemist-mix-test-this-buffer
+                         alchemist-mix-test-at-point
+                         alchemist-compile-this-buffer
+                         alchemist-compile-file
+                         alchemist-compile
+                         alchemist-execute-this-buffer
+                         alchemist-execute-file
+                         alchemist-project-run-tests-for-current-file
+                         alchemist-iex-compile-this-buffer
+                         alchemist-iex-reload-module))
+  )
+
 
 (defun elixir-visit-source ()
   "If the current line contains text like 'old_procedure_controller_test.exs:57', visit 
@@ -339,19 +372,9 @@ that file in the other window and position point on that line."
 (setq auto-mode-alist
       (cons '("\\.mm?d\\'" . markdown-mode) auto-mode-alist))
 
-;;;; Miscellaneous defuns
 
-(defun big ()
-  (interactive)
-  (text-scale-adjust 1))
 
-(defun line-to-top-of-window ()
-  (interactive)
-  (recenter 0))
 
-(defun save-all-buffers ()
-  (interactive)
-  (save-some-buffers t))
 
 (defun h-window () (window-at 1 1))
 (defvar h-buffer nil)
