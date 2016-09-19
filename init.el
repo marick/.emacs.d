@@ -37,12 +37,13 @@
   (interactive)
   (recenter 0))
 
-(defun save-all-buffers (&rest ignored)
+(defun save-all-buffers ()
+  (interactive)
   (save-some-buffers t))
 
 (defun save-before (commands)
   (dolist (c commands) 
-    (advice-add c :before #'save-all-buffers)))
+    (advice-add c :before (lambda (&rest ignored) (save-some-buffers t)))))
 
 ;;;; package.el
 (require 'package)
