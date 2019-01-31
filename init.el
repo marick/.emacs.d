@@ -49,9 +49,15 @@
 (require 'package)
 (setq package-user-dir "~/.emacs.d/elpa/")
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("gnu" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+
 
 (package-initialize)
 
@@ -70,6 +76,7 @@
     rainbow-delimiters
     company
     clj-refactor
+    reason-mode
 ;    midje-mode
     ))
 
@@ -125,7 +132,7 @@
   (setq-default ns-command-modifier 'hyper) 
 
   ; (set-face-attribute 'default nil :height 140)
-  (set-face-attribute 'default nil :font "Inconsolata-14")
+  ; (set-face-attribute 'default nil :font "Inconsolata-14")
 
   (add-to-list 'initial-frame-alist '(left . 1))
   (add-to-list 'initial-frame-alist '(top . 1))
@@ -187,20 +194,20 @@
 
 ;;;; midje mode
 
-(push "~/src/midje/midje-mode" load-path)
-(require 'midje-mode)
-(require 'clojure-jump-to-file)
+;; (push "~/src/midje/midje-mode" load-path)
+;; (require 'midje-mode)
+;; (require 'clojure-jump-to-file)
 
-(require 'clj-refactor)
-(defun my-clojure-mode-hook ()
-  (midje-mode 1)
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import
-  (cljr-add-keybindings-with-prefix "C-c C-m")
-  (company-mode-on)
-  )
+;; (require 'clj-refactor)
+;; (defun my-clojure-mode-hook ()
+;;   (midje-mode 1)
+;;   (clj-refactor-mode 1)
+;;   (yas-minor-mode 1) ; for adding require/use/import
+;;   (cljr-add-keybindings-with-prefix "C-c C-m")
+;;   (company-mode-on)
+;;   )
 
-(add-hook 'clojure-mode-hook 'my-clojure-mode-hook)
+;; (add-hook 'clojure-mode-hook 'my-clojure-mode-hook)
 
 ;;;; shell mode
 
@@ -505,6 +512,9 @@ that file in the other window and position point on that line."
 
 ;;; Me
 (require 'marick-elm)
+(require 'marick-purescript)
+(require 'marick-reason)
+(require 'marick-haskell)
 
 (ignore-errors
   (server-start))
@@ -515,8 +525,12 @@ that file in the other window and position point on that line."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes (quote (wheatgrass))))
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes (quote (wheatgrass)))
+ '(purescript-mode-hook
+   (quote
+    (capitalized-words-mode turn-on-purescript-indentation))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
