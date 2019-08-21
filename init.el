@@ -132,7 +132,7 @@
   (setq-default ns-command-modifier 'hyper) 
 
   ; (set-face-attribute 'default nil :height 140)
-  ; (set-face-attribute 'default nil :font "Inconsolata-14")
+  (set-face-attribute 'default nil :font "Menlo-14")
 
   (add-to-list 'initial-frame-alist '(left . 1))
   (add-to-list 'initial-frame-alist '(top . 1))
@@ -272,7 +272,7 @@ that file in the other window and position point on that line."
                                           (match-end 2)))))
                              
              (find-file-other-window file)
-             (goto-line (string-to-int line))))
+             (goto-line (string-to-number line))))
           (t
            (error "No elixir location on line.")))))
 
@@ -365,7 +365,7 @@ that file in the other window and position point on that line."
                                           (match-end 2)))))
                              
              (find-file-other-window file)
-             (goto-line (string-to-int line))))
+             (goto-line (string-to-number line))))
           (t
            (error "No ruby location on line.")))))
 

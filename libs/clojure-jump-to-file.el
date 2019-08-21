@@ -66,9 +66,9 @@ that file in the other window and position point on that line."
     (if (not relevant-file) 
 	(error (concat "No Clojure file matches " file))
       (find-file-other-window relevant-file)
-      (goto-line (string-to-int line))
+      (goto-line (string-to-number line))
       (if increment 
-	  (search-forward "=>" nil nil (string-to-int increment)))))
+	  (search-forward "=>" nil nil (string-to-number increment)))))
 )
 
 (defun midje-match-part (n)
