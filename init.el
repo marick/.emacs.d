@@ -99,6 +99,13 @@
       uniquify-ignore-buffers-re "^\\*")
 (require 'checkdoc)
 (require 'clojure-jump-to-file)
+(require 'dedicate-windows-manually)
+
+
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
 
 ;;;; Paths
 
